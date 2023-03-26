@@ -101,12 +101,35 @@
                     Abstract
                 </h3>
                 <p class="text-justify">
-Neural Radiance Fields (NeRF) is a popular view synthesis technique that represents a scene as a continuous volumetric function, parameterized by multilayer perceptrons that provide the volume density and view-dependent emitted radiance at each location. While NeRF-based techniques excel at representing fine geometric structures with smoothly varying view-dependent appearance, they often fail to accurately capture and reproduce the appearance of glossy surfaces. We address this limitation by introducing Ref-NeRF, which replaces NeRF's parameterization of view-dependent outgoing radiance with a representation of reflected radiance and structures this function using a collection of spatially-varying scene properties. We show that together with a regularizer on normal vectors, our model significantly improves the realism and accuracy of specular reflections. Furthermore, we show that our model's internal representation of outgoing radiance is interpretable and useful for scene editing.
+                    High-resolution heterogeneous reconstruction of 3D structures 
+                    of proteins and other biomolecules using cryo-electron
+                    microscopy (cryo-EM) is essential for understanding fundamental processes of life. 
+                    However, it is still challenging
+                    to reconstruct the continuous motions of 3D structures
+                    from hundreds of thousands of noisy and randomly ori-
+                    ented 2D cryo-EM images. Existing methods based on
+                    coordinate-based neural networks show compelling results
+                    to model continuous conformations of 3D structures in
+                    the Fourier domain, but they suffer from a limited ability
+                    to model local flexible regions and lack interpretability.
+                    We propose a novel approach, cryoFormer, that utilizes
+                    a transformer-based network architecture for continuous
+                    heterogeneous cryo-EM reconstruction. We for the first
+                    time directly reconstruct continuous conformations of 3D
+                    structures using an implicit feature volume in the 3D spatial
+                    domain. A novel deformation transformer decoder further
+                    improves reconstruction quality and, more importantly,
+                    locates and robustly tackles flexible 3D regions caused by
+                    conformations. In experiments, our method outperforms
+                    current approaches on three public datasets (1 synthetic
+                    and 2 experimental) and a new synthetic dataset of PEDV
+                    spike protein. The code and new synthetic dataset will be
+                    released for better reproducibility of our results.
                 </p>
             </div>
         </div>
 
-        <image src="img/architecture.png" class="img-responsive" alt="overview" width="60%" style="max-height: 450px;margin:auto;">
+        <image src="img_cryoformer/arch.png" class="img-responsive" alt="overview" width="60%" style="max-height: 450px;margin:auto;">
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
