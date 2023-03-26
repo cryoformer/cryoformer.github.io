@@ -171,6 +171,21 @@ span.highlight {
     padding: 3px;
 }
 
+.author-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.author {
+    margin: 5px;
+    text-align: center;
+    flex: 1 1 auto;
+}
+
 .video-compare-container {
   width: 63%;
   margin: 0 auto;
