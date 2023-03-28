@@ -97,6 +97,7 @@
      
 
         <div class="row">
+            
             <div class="col-md-8 col-md-offset-2">
                 <h3>
                     Abstract
@@ -113,7 +114,7 @@
                     to model continuous conformations of 3D structures in
                     the Fourier domain, but they suffer from a limited ability
                     to model local flexible regions and lack interpretability.
-                    We propose a novel approach, cryoFormer, that utilizes
+                    We propose a novel approach, CryoFormer, that utilizes
                     a transformer-based network architecture for continuous
                     heterogeneous cryo-EM reconstruction. We for the first
                     time directly reconstruct continuous conformations of 3D
@@ -129,10 +130,13 @@
                 </p>
             </div>
         </div>
+    </div>
+</div>
 
         <image src="img_cryoformer/arch.png" class="img-responsive" alt="overview" width="60%" style="max-height: 450px;margin:auto;">
+        
 
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
                     Video
@@ -143,22 +147,19 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Reflection Direction Parameterization
+                    Continuous Modeling of Conformational Heterogeneity
                 </h3>
                 <div class="text-justify">
-                    Previous approaches directly input the camera's view direction into the MLP to predict outgoing radiance. We show that instead using the reflection of the view direction about the normal makes the emittance function significantly easier to learn and interpolate, greatly improving our results.
-                    
-                    <br><br>
-                    
+                    Using a transformer-based neural representation built in the spatial domain, cryoFormer is capable of continuously modeling the conformational heterogeneity, while recovering fine details of structures.
                 </div>
                 <div class="text-center">
-                    <video id="refdir" width="40%" playsinline autoplay loop muted>
-                        <source src="video/reflection_animation.mp4" type="video/mp4" />
+                    <video id="refdir" width="60%" playsinline autoplay loop muted>
+                        <source src="video/7w_01.mp4" type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -167,22 +168,14 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Integrated Directional Encoding
+                    Visualization of 3D Attention Maps
                 </h3>
                 <div class="text-justify">
-                    We explicitly model object roughness using the expected values of a set of spherical harmonics under a von Mises-Fisher distribution whose concentration parameter varies spatially:
-                </div>
-                <br>
+                    We map the value in the 3D attention map to the surface color of the reconstructed volume.
+                    The displayed channel of the 3D attention map captures information about the flexible regions of the PEDV spike.
                 <div class="text-center">
-                    <img src="./img/ide.png" width="50%">
-                </div>
-                <br>
-                <div class="text-justify">
-                    We call this <i>Integrated Directional Encoding</i>, and we show experimentally that it allows sharing the emittance functions between points with different roughnesses. It also enables scene editing after training. Theoretically, our encoding is stationary on the sphere, similar to the Euclidean stationarity of NeRF's positional encoding. <br><br>
-                </div>
-                <div class="text-center">
-                    <video id="ide" width="100%" playsinline autoplay controls loop muted>
-                        <source src="video/ide_animation.mp4" type="video/mp4" />
+                    <video id="refdir" width="80%" playsinline autoplay loop muted>
+                        <source src="video/attention.mp4" type="video/mp4" />
                     </video>
                 </div>
             </div>
@@ -191,66 +184,61 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <h3>
-                    Additional Synthetic Results
-                </h3>
-                <div class="video-compare-container">
-                    <video class="video" id="musclecar" loop playsinline autoPlay muted src="video/musclecar_mipnerf_ours.mp4" onplay="resizeAndPlay(this)"></video>
-                    <canvas height=0 class="videoMerge" id="musclecarMerge"></canvas>
-                </div>
-			</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Results on Captured Scenes
-                </h3>
-                Our method also produces accurate renderings and surface normals from captured photographs:
-                <div class="video-compare-container" style="width: 100%">
-                    <video class="video" id="toycar" loop playsinline autoPlay muted src="video/toycar.mp4" onplay="resizeAndPlay(this)"></video>
-                    <canvas height=0 class="videoMerge" id="toycarMerge"></canvas>
-                </div>
-			</div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <h3>
-                    Scene Editing
+                    Comparison with Baselines on Synthetic Datasets
                 </h3>
                 <div class="text-justify">
-                    We show that our structured representation of the directional MLP allows for scene editing after training. Here we show that we can convincingly change material properties.
-                    <br>
-                    We can increase and decrease material roughness:
+                    We compare CryoFormer with CryoDRGN and SFBP on PEDV. On CryoDRGN Synthetic Dataset, CryoFormer reconstructed volumes qualitatively match the ground truth and baselines' reconstructed
+                    structures, with better recovery of details. 
                 </div>
-
-                <div style="overflow: hidden;">
-                    <video id="editing-materials" width="100%" playsinline autoplay loop muted style="margin-top: -5%;">
-                        <source src="video/materials_rougher_smoother.mp4" type="video/mp4" />
+                <div class="text-center">
+                    <video id="refdir" width="80%" playsinline autoplay loop muted>
+                        <source src="video/flower.mp4" type="video/mp4" />
                     </video>
                 </div>
-
                 <div class="text-justify">
-                    We can also control the amounts of specular and diffuse colors, or change the diffuse color without affecting the specular reflections:
+                    On PEDV spike synthetic dataset, with SNR = 0.01. 
+                    The volumes reconstructed by CryoFormer exhibit better restoration of details than the baselines.
                 </div>
-                
-                <table width="100%">
-                    <tr>
-                        <td align="left" valign="top" width="50%">
-                            <video id="v2" width="100%" playsinline autoplay loop muted>
-                                <source src="video/car_color2.mp4" type="video/mp4" />
-                            </video>
-                        </td>
-                        <td align="left" valign="top" width="50%">
-                            <video id="v3" width="100%" playsinline autoplay loop muted>
-                                <source src="video/car_color3.mp4" type="video/mp4" />
-                            </video>
-                        </td>
-                    </tr>
-                </table>
-
+                <div class="text-center">
+                    <video id="refdir" width="80%" playsinline autoplay loop muted>
+                        <source src="video/7w_snr.mp4" type="video/mp4" />
+                    </video>
+                </div>
             </div>
         </div>
+
+       
+
+         <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h3>
+                    Reconstruction on Real Experimental Datasets
+                </h3>
+                <div class="text-justify">
+                    We compare CryoFormer with CryoDRGN, a representative neural representation-based
+                    method, and cryoSPARC, a traditional state-of-the-art method.
+                    On EMPIAR-10028, our method matches or even
+                    outperforms baselines in terms of reconstructing fine details of biological structures.
+                </div>
+                <div class="text-center">
+                    <video id="refdir" width="80%" playsinline autoplay loop muted>
+                        <source src="video/10028.mp4" type="video/mp4" />
+                    </video>
+                </div>
+                <div class="text-justify">
+                   On EMPIAR-10076 where multiple conformational states exist, our method can successfully model the heterogeneity
+                   of the data while keeping fine details.
+                </div>
+                <div class="text-center">
+                    <video id="refdir" width="100%" playsinline autoplay loop muted>
+                        <source src="video/10076.mp4" type="video/mp4" />
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        
+
 
             
         <div class="row">
@@ -260,14 +248,8 @@
                 </h3>
                 <div class="form-group col-md-10 col-md-offset-1">
                     <textarea id="bibtex" class="form-control" readonly>
-@article{verbin2022refnerf,
-    title={{Ref-NeRF}: Structured View-Dependent Appearance for
-           Neural Radiance Fields},
-    author={Dor Verbin and Peter Hedman and Ben Mildenhall and
-            Todd Zickler and Jonathan T. Barron and Pratul P. Srinivasan},
-    journal={CVPR},
-    year={2022}
-}</textarea>
+coming soon
+</textarea>
                 </div>
             </div>
         </div>
@@ -278,8 +260,8 @@
                     Acknowledgements
                 </h3>
                 <p class="text-justify">
-                We would like to thank Lior Yariv and Kai Zhang for helping us evaluate their methods, and Ricardo Martin-Brualla for helpful comments on our text. DV is supported by the National Science Foundation under Cooperative Agreement PHY-2019786 (an NSF AI Institute, <a href="http://iaifi.org">http://iaifi.org</a>)
-                    <br>
+                <!-- We would like to thank Lior Yariv and Kai Zhang for helping us evaluate their methods, and Ricardo Martin-Brualla for helpful comments on our text. DV is supported by the National Science Foundation under Cooperative Agreement PHY-2019786 (an NSF AI Institute, <a href="http://iaifi.org">http://iaifi.org</a>)
+                    <br> -->
                 The website template was borrowed from <a href="http://mgharbi.com/">Michaël Gharbi</a>.
                 </p>
             </div>
